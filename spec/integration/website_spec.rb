@@ -19,9 +19,9 @@ Capybara.register_driver :selenium do |app|
 end
 Capybara.default_driver = :selenium
 
-describe "Example page render unit tests" do
-  it "Shows the Explore California logo" do
-    visit('/')
-    expect(page.has_selector? '.logo').to be true
+describe 'Real website' do
+  it 'Should be Explore California' do
+    visit(ENV['WEBSITE_URL'])
+    expect(page.title).to eq 'Welcome to Explore California'
   end
 end

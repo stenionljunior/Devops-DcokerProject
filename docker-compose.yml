@@ -1,5 +1,10 @@
 version: '3.3'
 services:
+  selenium:
+    image: selenium/standalone-chrome-debug
+    ports:
+      - 4444:4444
+      - 5900:5900
   website:
    build:
     context: .
@@ -9,8 +14,12 @@ services:
     build:
       dockerfile: rspec.dockerfile
       context: .
+    environment:
+      SELENIUM_HOST: selenium
+      SELENIUM_PORT: 4444
     volumes:
-      - "$PWD:/app"
+      - $PWD:/app
+    entrypoint: rspec
     command:
       - --pattern
       - /app/spec/unit/*_spec.rb
